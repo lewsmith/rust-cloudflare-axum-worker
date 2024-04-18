@@ -1,0 +1,11 @@
+/.idea
+/.vscode
+
+/build
+/target
+
+/**/node_modules
+
+/wrangler/.wrangler
+/wrangler/.dev.vars
+/wrangler/dist

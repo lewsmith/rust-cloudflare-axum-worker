@@ -1,0 +1,19 @@
+name = "rust-cloudflare-axum-worker"
+
+main = "../build/worker/shim.mjs"
+
+compatibility_date = "2023-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+build = { command = "cargo install -q worker-build@0.0.10 && worker-build" }
+vars = { ENV = "production" }
+
+[env.dev]
+build = { command = "cargo install -q worker-build@0.0.10 && worker-build --dev" }
+vars = { ENV = "development" }
+
+[env.test]
+vars = { ENV = "test" }
+
+[env.preview]
+vars = { ENV = "preview" }

@@ -1,0 +1,22 @@
+name: 'Install cargo dependencies from cache'
+description: 'Install cargo dependencies from cache'
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup cargo cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          target
+          ~/.cargo/bin
+          ~/.cargo/registry
+          ~/.rustup
+        key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-rust-
+    - name: Install Rust
+      uses: actions-rust-lang/setup-rust-toolchain@v1
+      with:
+        toolchain: stable
+        target: wasm32-unknown-unknown
+        components: rustfmt, clippy

@@ -1,0 +1,79 @@
+stages:
+  - linting
+  - tests
+  - deploy
+
+default:
+  image: rust:latest
+
+cache: &global_cache
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - target/
+    - node_modules/
+  policy: pull-push
+
+before_script:
+  - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  - source $HOME/.nvm/nvm.sh
+  - nvm install 18
+  - nvm alias default 18
+  - npm ci
+
+lint:rust:
+  stage: linting
+  script:
+    - rustup component add rustfmt clippy
+    - make lint-rust
+  cache:
+    <<: *global_cache
+    policy: pull-push
+
+lint:typescript:
+  stage: linting
+  script:
+    - make lint-typescript
+  cache:
+    <<: *global_cache
+    policy: pull-push
+
+test:unit:
+  stage: tests
+  needs: ["lint:rust", "lint:typescript"]
+  script:
+    - make test-unit
+  cache:
+    <<: *global_cache
+    policy: pull
+
+test:integration:
+  stage: tests
+  needs: ["test:unit"]
+  script:
+    - make build
+    - make test-integration
+  cache:
+    <<: *global_cache
+    policy: pull
+
+deploy:preview:
+  stage: deploy
+  when: manual
+  needs: ["test:unit", "test:integration"]
+  script:
+    - make deploy-preview
+  cache:
+    <<: *global_cache
+    policy: pull
+
+deploy:release:
+  stage: deploy
+  when: manual
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+  needs: ["test:unit", "test:integration"]
+  script:
+    - make deploy-release 
+  cache:
+    <<: *global_cache
+    policy: pull
