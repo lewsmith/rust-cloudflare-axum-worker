@@ -10,7 +10,7 @@ dev-watch: ## Run the development server using Wrangler and watch for changes\n
 
 .PHONY: watch
 watch:
-	cargo install -q --locked watchexec-cli worker-build
+	cargo install -q --locked watchexec-cli worker-build@0.0.10
 	echo -e "\n\033[1m\033[36mWatching for changes\033[0m"
 	watchexec -p -N -w ./src -w ./Cargo.toml 'worker-build  --dev'
 
