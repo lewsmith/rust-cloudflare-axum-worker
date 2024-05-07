@@ -28,3 +28,4 @@ console_error_panic_hook = { version = "0.1.7", optional = true }
 serde = { version = "1.0.198", features = ["derive"] }
 oneshot = "0.1.6"
 url = "2.5.0"
+askama = "0.12.1"

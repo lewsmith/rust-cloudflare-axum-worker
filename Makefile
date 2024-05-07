@@ -36,7 +36,7 @@ lint-typescript: ## Run TypeScript linting using ESlint (mainly integration test
 .PHONY: lint-fix-rust
 lint-fix-rust: ## Run Rust lint fixers & formatter using Cargo Fmt
 	cargo fmt
-	cargo clippy --fix --allow-staged
+	cargo clippy --fix --allow-staged --allow-dirty
 
 .PHONY: lint-fix-typescript
 lint-fix-typescript: ## Run TypeScript lint fixers & formatter using ESlint (mainly integration tests)\\n
