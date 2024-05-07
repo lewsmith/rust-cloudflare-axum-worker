@@ -1,7 +1,12 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.7.2/schema.json",
   "files": {
-    "ignore": ["./build/**", "./target/**", "./wrangler/dist/**"]
+    "ignore": [
+      "./build/**",
+      "./target/**",
+      "./wrangler/.wrangler/**",
+      "./wrangler/dist/**"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -12,8 +17,15 @@
     "lineWidth": 80,
     "attributePosition": "auto"
   },
-  "organizeImports": { "enabled": true },
-  "linter": { "enabled": true, "rules": { "recommended": true } },
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
   "javascript": {
     "formatter": {
       "jsxQuoteStyle": "double",
