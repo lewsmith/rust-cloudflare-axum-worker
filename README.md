@@ -25,6 +25,7 @@ features like D1, KV etc.
 - Local Github actions testing via [Act](https://github.com/nektos/act)
 - [Lint-staged](https://github.com/lint-staged/lint-staged) checks (linting/formatting)
   via [Husky](https://github.com/typicode/husky)
+- Template rendering via [Askama](https://github.com/djc/askama)
 
 ## Get Started
 

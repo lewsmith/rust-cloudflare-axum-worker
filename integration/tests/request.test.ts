@@ -1,17 +1,43 @@
 import { SELF } from 'cloudflare:test';
 import { expect, it } from 'vitest';
 
-it('dispatches fetch event', async () => {
-  const hello = await SELF.fetch('https://fake.host/');
-  expect(hello.status).toBe(200);
-  expect(await hello.text()).toContain('👋 Hello from the Worker');
+it('can fetch via SELF', async () => {
+  const response = await SELF.fetch('https://fake.host/');
 
-  const api = await SELF.fetch('https://fake.host/api');
-  expect(api.status).toBe(200);
-  expect(await api.text()).toEqual(
-    JSON.stringify({
-      status: 200,
-      message: 'Some API response'
-    })
+  expect(response.status).toBe(200);
+
+  expect(await response.text()).toContain('👋 Hello from the Worker');
+});
+
+it('renders templates', async () => {
+  const response = await SELF.fetch('https://fake.host/template');
+  const text = await response.text();
+
+  expect(response.headers.get('content-type')).toEqual(
+    'text/html; charset=utf-8'
   );
+
+  expect(text).toContain('Template Example');
+  expect(text).toContain('vars.ENV: test');
+});
+
+it('returns a generic json response', async () => {
+  const response = await SELF.fetch('https://fake.host/json');
+
+  expect(response.headers.get('content-type')).toEqual('application/json');
+
+  expect(await response.json()).toMatchObject({
+    status: 200,
+    message: 'Some JSON response message.'
+  });
+});
+
+it('returns var values', async () => {
+  const response = await SELF.fetch('https://fake.host/json');
+
+  expect(await response.json()).toMatchObject({
+    vars: {
+      ENV: 'test'
+    }
+  });
 });
