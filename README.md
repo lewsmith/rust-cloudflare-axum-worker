@@ -30,7 +30,7 @@ features like D1, KV etc.
 
 - Ensure Rust, Make & Node >= 18 is installed.
 - Clone.
-- Create `wrangler/.dev.vars` (`cp wrangler/.dev.vars.sample wrangler/.dev.vars`) and add you're Cloudflare API Token
+- Create `wrangler/.dev.vars` (`cp wrangler/.dev.vars.sample wrangler/.dev.vars`) and add your Cloudflare API Token
   & account ID.
 - Run `make deps` to install node dependencies.
 - Run `make help` to view available commands.
