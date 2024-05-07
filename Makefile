@@ -1,7 +1,7 @@
 all: help
 
 .PHONY: dev
-dev: ## Run the development server using Wrangler
+dev: deps ## Run the development server using Wrangler
 	npx wrangler dev build/worker/shim.mjs --live-reload -c ./wrangler/config.toml --env dev
 
 .PHONY: dev-watch
@@ -10,6 +10,8 @@ dev-watch: ## Run the development server using Wrangler and watch for changes\n
 
 .PHONY: watch
 watch:
+	# Build command requires worker-build to be <= v0.0.10 due to @cloudflare/vitest-pool-workers compatibility bug.
+    # See https://github.com/cloudflare/workers-sdk/issues/5726
 	cargo install -q --locked watchexec-cli worker-build@0.0.10
 	echo -e "\n\033[1m\033[36mWatching for changes\033[0m"
 	watchexec -p -N -w ./src -w ./Cargo.toml 'worker-build  --dev'

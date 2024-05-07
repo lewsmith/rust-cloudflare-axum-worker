@@ -5,10 +5,14 @@ main = "../build/worker/shim.mjs"
 compatibility_date = "2023-12-01"
 compatibility_flags = ["nodejs_compat"]
 
+# Build command requires worker-build to be <= v0.0.10 due to @cloudflare/vitest-pool-workers compatibility bug.
+# See https://github.com/cloudflare/workers-sdk/issues/5726
 build = { command = "cargo install -q worker-build@0.0.10 && worker-build" }
 vars = { ENV = "production" }
 
 [env.dev]
+# Build command requires worker-build to be <= v0.0.10 due to @cloudflare/vitest-pool-workers compatibility bug.
+# See https://github.com/cloudflare/workers-sdk/issues/5726
 build = { command = "cargo install -q worker-build@0.0.10 && worker-build --dev" }
 vars = { ENV = "development" }
 
