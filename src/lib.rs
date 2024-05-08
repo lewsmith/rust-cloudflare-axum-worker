@@ -13,7 +13,7 @@ use axum::{
 };
 use serde::{Deserialize, Serialize};
 use tower_service::Service;
-use worker::*;
+use worker::{event, Context, Env, HttpRequest, Var};
 
 #[derive(Debug, Deserialize, Serialize)]
 struct GenericJsonResponse {
