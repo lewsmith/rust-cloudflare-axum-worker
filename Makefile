@@ -10,9 +10,7 @@ dev-watch: ## Run the development server using Wrangler and watch for changes\n
 
 .PHONY: watch
 watch:
-	# Build command requires worker-build to be <= v0.0.10 due to @cloudflare/vitest-pool-workers compatibility bug.
-    # See https://github.com/cloudflare/workers-sdk/issues/5726
-	cargo install -q --locked watchexec-cli worker-build@0.0.10
+	cargo install -q --locked watchexec-cli worker-build
 	echo -e "\n\033[1m\033[36mWatching for changes\033[0m"
 	watchexec -p -N -w ./src -w ./Cargo.toml 'worker-build  --dev'
 

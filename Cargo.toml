@@ -2,7 +2,7 @@
 name = "rust-cloudflare-axum-worker"
 
 version = "0.1.1"
-edition = "2021"
+edition = "2018"
 description = "A Rust worker example for Cloudflare Workers using Axum"
 
 [profile.release]
