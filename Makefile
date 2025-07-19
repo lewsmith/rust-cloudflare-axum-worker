@@ -40,7 +40,7 @@ lint-fix-rust: ## Run Rust lint fixers & formatter using Cargo Fmt
 
 .PHONY: lint-fix-typescript
 lint-fix-typescript: ## Run TypeScript lint fixers & formatter using ESlint (mainly integration tests)\\n
-	npx @biomejs/biome check --apply .
+	npx @biomejs/biome check .
 
 .PHONY: deps
 deps: ## Install dependencies
